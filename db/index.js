@@ -149,6 +149,20 @@ async function getUserById(userId) {
     throw error;
   }
 }
+
+async function createTags(tagList) {
+  if (tagList.length === 0) {
+    return;
+  }
+  const insertValues = tagList.map((_, index) => `$${index + 1}`).join("), (");
+
+  const selectValues = tagList.map((_, index) => `$${index + 1}`).join(", ");
+
+  try {
+  } catch (error) {
+    throw error;
+  }
+}
 // later
 // and export them
 module.exports = {
@@ -161,4 +175,5 @@ module.exports = {
   getAllPosts,
   getPostsByUser,
   getUserById,
+  createTags,
 };
