@@ -10,6 +10,14 @@ const server = express();
 
 server.use(express.json());
 
+server.get("/add/:first/to/:second", (req, res, next) => {
+  res.send(
+    `<h1>${req.params.first} + ${req.params.second} = ${
+      Number(req.params.first) + Number(req.params.second)
+    }</h1>`
+  );
+});
+
 const morgan = require("morgan");
 server.use(morgan("dev"));
 
