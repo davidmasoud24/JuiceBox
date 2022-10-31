@@ -1,6 +1,5 @@
 require("dotenv").config();
-// remove this once you confirm it works
-console.log(process.env.JWT_SECRET);
+const path = require("path");
 
 const { client } = require("./db");
 client.connect();
@@ -9,6 +8,8 @@ const PORT = 3000;
 const server = express();
 
 server.use(express.json());
+
+server.use(express.static(path.join(__dirname, "./client", "dist")));
 
 server.get("/add/:first/to/:second", (req, res, next) => {
   res.send(
@@ -23,6 +24,10 @@ server.use(morgan("dev"));
 
 const apiRouter = require("./api");
 server.use("/api", apiRouter);
+
+server.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "./client/dist", "index.html"));
+});
 
 server.listen(PORT, () => {
   console.log("The server is up on port", PORT);
